@@ -1,20 +1,19 @@
-const mysql = require("mysql2");
+const mysql = require('mysql2');
 
-const pool = mysql.createPool({
-  host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: "mern_auth_db", // ✅ correct DB
-  port: 3307 // ✅ VERY IMPORTANT
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'mern_auth_db', // ✅ correct DB
+    port: 3307 // ✅ correct port
 });
 
-pool.getConnection((err, conn) => {
-  if (err) {
-    console.error("❌ DB ERROR:", err);
-  } else {
-    console.log("✅ MySQL Connected Successfully");
-    conn.release();
-  }
+db.connect((err) => {
+    if (err) {
+        console.log('DB Error:', err);
+    } else {
+        console.log('MySQL Connected');
+    }
 });
 
-module.exports = pool.promise();
+module.exports = db;
